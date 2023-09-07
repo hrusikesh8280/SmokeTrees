@@ -1,12 +1,20 @@
 const express = require('express');
+const cors = require("cors");
+const { connection } = require('./connection/db');
+
 const app = express();
+app.use(express.json())
+app.use(cors())
 
 
 
-app.use(express.json());
 
-
-
-app.listen(7000, () => {
-  console.log(`Server is running on port 7000`);
-});
+app.listen(7000,async()=>{
+    try{
+        await connection
+        console.log("Server Connected to the Mongoose");
+    }catch(err){
+        console.log(err);
+    }
+    console.log("Server is Running at 7000");
+})
